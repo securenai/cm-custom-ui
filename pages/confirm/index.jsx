@@ -3,11 +3,12 @@ import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import SocialSignin from '../../components/SocialSignin';
 
-export default function Login() {
+export default function Confirm() {
   const router = useRouter();
-  const login = () => {
+  const name = router.query.name;
+  console.log(name);
+  const confirm = () => {
     var form = document.getElementById('myForm');
     form.onsubmit = function (event) {
       var xhr = new XMLHttpRequest();
@@ -15,7 +16,7 @@ export default function Login() {
       //open the request
       xhr.open(
         'POST',
-        'https://nest-aws-cognito.herokuapp.com/auth/authenticate',
+        'https://nest-aws-cognito.herokuapp.com/auth/confirmSignup',
         true,
       );
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -28,7 +29,7 @@ export default function Login() {
           if (xhr.status === 201) {
             router.push('/success');
           } else {
-            alert('Login failed');
+            alert('confirm failed, wrong code!');
           }
         }
       };
@@ -36,22 +37,6 @@ export default function Login() {
       return false;
     };
   };
-
-  // const postRequest = async (url, data) => {
-  //   const response = await fetch(url, {
-  //     method: 'POST',
-  //     mode: 'cors',
-  //     cache: 'no-cache',
-  //     credentials: 'same-origin',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     redirect: 'follow',
-  //     referrerPolicy: 'no-referrer',
-  //     body: JSON.stringify(data),
-  //   });
-  //   return response.json();
-  // };
 
   return (
     <div className={styles.container}>
@@ -64,34 +49,33 @@ export default function Login() {
       <main className={styles.main}>
         <h1 className={styles.title}>Cooler Master CMID</h1>
         <div className={styles.appwrap}>
-          <h1>Login</h1>
+          <h1>Confirm your account</h1>
           <form id="myForm">
             <div>
               <input
                 type="text"
-                placeholder="Enter username"
-                name="name"
+                placeholder="Enter verification code"
+                name="confirmationCode"
                 className={styles.input}
               />
             </div>
             <div>
               <input
-                type="password"
-                placeholder="Enter password"
-                name="password"
+                type="hidden"
+                name="username"
+                value={name}
                 className={styles.input}
               />
             </div>
-            <button className={styles.loginBtn} onClick={() => login()}>
-              Login
+            <button className={styles.loginBtn} onClick={() => confirm()}>
+              Confirm account
             </button>
-            <SocialSignin />
           </form>
           <div className={styles.registerOrSignin}>
-            Need an account?
-            <Link href="/register" className={styles.registerOrSignin2}>
+            Didnt recieve a code?
+            <Link href="/login" className={styles.registerOrSignin2}>
               {' '}
-              Sign up
+              Send a new code
             </Link>
           </div>
         </div>

@@ -149,6 +149,7 @@
   outline: none;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
   transition: all 0.2s ease-in-out;
+  margin-bottom: 10px;
 }
 
 .googleBtn:hover {
@@ -207,9 +208,19 @@
   margin-bottom: 10px;
 }
 
-.register {
+.registerOrSignin {
   margin-top: 50px;
   text-align: center;
-  color: red;
-  font-size: 20px;
+  font-size: 16px;
+}
+
+.registerOrSignin2 {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.registerOrSignin2:hover {
+  text-decoration: underline;
 }

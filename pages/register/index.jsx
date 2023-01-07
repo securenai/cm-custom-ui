@@ -4,9 +4,12 @@ import styles from '../../styles/Home.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import SocialSignin from '../../components/SocialSignin';
+import { useState } from 'react';
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
+  const [name, setName] = useState('');
+
   const login = () => {
     var form = document.getElementById('myForm');
     form.onsubmit = function (event) {
@@ -15,7 +18,7 @@ export default function Login() {
       //open the request
       xhr.open(
         'POST',
-        'https://nest-aws-cognito.herokuapp.com/auth/authenticate',
+        'https://nest-aws-cognito.herokuapp.com/auth/register',
         true,
       );
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -26,9 +29,9 @@ export default function Login() {
           // form.reset(); //reset form after AJAX success or do something else
           console.log(xhr.status, xhr.statusText);
           if (xhr.status === 201) {
-            router.push('/success');
+            router.push({ pathname: '/confirm', query: { name: name } });
           } else {
-            alert('Login failed');
+            alert('Signup failed');
           }
         }
       };
@@ -36,22 +39,6 @@ export default function Login() {
       return false;
     };
   };
-
-  // const postRequest = async (url, data) => {
-  //   const response = await fetch(url, {
-  //     method: 'POST',
-  //     mode: 'cors',
-  //     cache: 'no-cache',
-  //     credentials: 'same-origin',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     redirect: 'follow',
-  //     referrerPolicy: 'no-referrer',
-  //     body: JSON.stringify(data),
-  //   });
-  //   return response.json();
-  // };
 
   return (
     <div className={styles.container}>
@@ -64,13 +51,23 @@ export default function Login() {
       <main className={styles.main}>
         <h1 className={styles.title}>Cooler Master CMID</h1>
         <div className={styles.appwrap}>
-          <h1>Login</h1>
+          <h1>Register</h1>
           <form id="myForm">
             <div>
               <input
                 type="text"
                 placeholder="Enter username"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 name="name"
+                className={styles.input}
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Enter email"
+                name="email"
                 className={styles.input}
               />
             </div>
@@ -83,15 +80,15 @@ export default function Login() {
               />
             </div>
             <button className={styles.loginBtn} onClick={() => login()}>
-              Login
+              Sign up
             </button>
             <SocialSignin />
           </form>
           <div className={styles.registerOrSignin}>
-            Need an account?
-            <Link href="/register" className={styles.registerOrSignin2}>
+            Already have an account?
+            <Link href="/login" className={styles.registerOrSignin2}>
               {' '}
-              Sign up
+              Sign in
             </Link>
           </div>
         </div>
