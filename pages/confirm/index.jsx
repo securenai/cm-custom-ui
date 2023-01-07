@@ -38,6 +38,36 @@ export default function Confirm() {
     };
   };
 
+  const resend = () => {
+    var form = document.getElementById('myForm2');
+    form.onsubmit = function (event) {
+      var xhr = new XMLHttpRequest();
+      var formData = new FormData(form);
+      //open the request
+      xhr.open(
+        'POST',
+        'https://nest-aws-cognito.herokuapp.com/auth/resendCode',
+        true,
+      );
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      //send the form data
+      xhr.send(JSON.stringify(Object.fromEntries(formData)));
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          // form.reset(); //reset form after AJAX success or do something else
+          console.log(xhr.status, xhr.statusText);
+          if (xhr.status === 201) {
+            router.push('/confirm');
+          } else {
+            alert('confirm failed, wrong code!');
+          }
+        }
+      };
+      //Fail the onsubmit to avoid page refresh.
+      return false;
+    };
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -73,10 +103,22 @@ export default function Confirm() {
           </form>
           <div className={styles.registerOrSignin}>
             Didnt recieve a code?
-            <Link href="/login" className={styles.registerOrSignin2}>
-              {' '}
-              Send a new code
-            </Link>
+            <form id="myForm2">
+              <div>
+                <input
+                  type="hidden"
+                  name="username"
+                  value={name}
+                  className={styles.input}
+                />
+              </div>
+              <button
+                className={styles.registerOrSignin2}
+                onClick={() => resend()}>
+                {' '}
+                Send a new code
+              </button>
+            </form>
           </div>
         </div>
       </main>
