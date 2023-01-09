@@ -14,11 +14,7 @@ export default function Confirm() {
       var xhr = new XMLHttpRequest();
       var formData = new FormData(form);
       //open the request
-      xhr.open(
-        'POST',
-        'https://nest-aws-cognito.herokuapp.com/auth/confirmSignup',
-        true,
-      );
+      xhr.open('POST', 'http://localhost:4000/auth/confirmSignup', true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       //send the form data
       xhr.send(JSON.stringify(Object.fromEntries(formData)));
@@ -44,11 +40,7 @@ export default function Confirm() {
       var xhr = new XMLHttpRequest();
       var formData = new FormData(form);
       //open the request
-      xhr.open(
-        'POST',
-        'https://nest-aws-cognito.herokuapp.com/auth/resendCode',
-        true,
-      );
+      xhr.open('POST', 'https://cmid-be.herokuapp.com/auth/resendCode', true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       //send the form data
       xhr.send(JSON.stringify(Object.fromEntries(formData)));
