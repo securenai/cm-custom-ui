@@ -6,12 +6,8 @@ import { useEffect } from 'react';
 
 export default function Success() {
   useEffect(() => {
-    alertOpen();
+    alert('Open Master Control + Agent?');
   }, []);
-
-  const alertOpen = () => {
-    confirm('Open Master Control + Agent?');
-  };
 
   return (
     <div className={styles.container}>
