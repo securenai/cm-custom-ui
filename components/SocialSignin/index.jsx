@@ -10,7 +10,7 @@ export default function SocialSignin() {
         className={styles.googleBtn}
         onClick={() => {
           window.open(
-            'https://simpleapptest.auth.us-east-1.amazoncognito.com/oauth2/authorize?identity_provider=Google&redirect_uri=http://localhost:3000&response_type=CODE&client_id=tll59p88np9bvv6vrtk5d0erb&scope=aws.cognito.signin.user.admin email openid phone profile',
+            'https://simpleapptest.auth.us-east-1.amazoncognito.com/oauth2/authorize?identity_provider=Google&redirect_uri=https://cm-custom-ui.vercel.app/success&response_type=CODE&client_id=tll59p88np9bvv6vrtk5d0erb&scope=aws.cognito.signin.user.admin email openid phone profile',
           );
         }}>
         Google
