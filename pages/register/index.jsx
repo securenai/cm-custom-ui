@@ -16,7 +16,11 @@ export default function Register() {
       var xhr = new XMLHttpRequest();
       var formData = new FormData(form);
       //open the request
-      xhr.open('POST', 'https://cmid-be.herokuapp.com/auth/register', true);
+      xhr.open(
+        'POST',
+        'https://nest-aws-cognito.herokuapp.com/auth/register',
+        true,
+      );
       xhr.setRequestHeader('Content-Type', 'application/json');
       //send the form data
       xhr.send(JSON.stringify(Object.fromEntries(formData)));
