@@ -6,7 +6,9 @@ import { useEffect } from 'react';
 
 export default function Success() {
   useEffect(() => {
-    alert('Open Master Control + Agent?');
+    setTimeout(() => {
+      confirm('Open Master Control + Agent?');
+    }, 2000);
   }, []);
 
   return (
